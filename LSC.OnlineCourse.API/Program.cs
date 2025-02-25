@@ -19,10 +19,12 @@ namespace LSC.OnlineCourse.API
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
                 providerOptions => providerOptions.EnableRetryOnFailure());
                 //options.EnableSensitiveDataLogging();
-                });
+            });
 
             builder.Services.AddScoped<ICourseCategoryRepository, CourseCategoryRepository>();
             builder.Services.AddScoped<ICourseCategoryService, CourseCategoryService>();
+            builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+            builder.Services.AddScoped<ICourseService, CourseService>();
 
 
             builder.Services.AddControllers();

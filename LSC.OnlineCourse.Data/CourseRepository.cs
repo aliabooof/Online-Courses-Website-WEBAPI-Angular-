@@ -9,7 +9,7 @@ namespace LSC.OnlineCourse.Data
         public async Task<List<CourseDto>> GetAllCourseAsync(int? categoryId = null)
         {
             var query = _dbContext.Courses
-                .Include(c => c.CategoryId)
+                .Include(c => c.Category)
                 .AsQueryable();
 
             if(categoryId.HasValue)

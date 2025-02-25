@@ -8,5 +8,5 @@
 
         public int TotalRating { get; set; }
     }
-    }
+    
 }

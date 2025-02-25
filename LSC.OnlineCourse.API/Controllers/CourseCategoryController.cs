@@ -1,4 +1,5 @@
-﻿using LSC.OnlineCourse.Services;
+﻿using LSC.OnlineCourse.Core.Model;
+using LSC.OnlineCourse.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +10,7 @@ namespace LSC.OnlineCourse.API.Controllers
     public class CourseCategoryController(ICourseCategoryService categoryService) : ControllerBase
     {
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<ActionResult<CourseCategoryDto>> Get( int id)
         {
             var category = await categoryService.GetByIdAsync(id);
             if (category == null) 
@@ -21,15 +22,15 @@ namespace LSC.OnlineCourse.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<List<CourseCategoryDto>>> GetAll()
         {
-            var categories = await categoryService.GetAllAsync();
-            if (categories is null)
+            var courseDetail = await categoryService.GetAllAsync();
+            if (courseDetail is null)
             {
                 return NotFound();
             }
 
-            return Ok(categories);
+            return Ok(courseDetail);
         }
     }
 }
