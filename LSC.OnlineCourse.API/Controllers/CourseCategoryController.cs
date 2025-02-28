@@ -1,36 +1,42 @@
-﻿using LSC.OnlineCourse.Core.Model;
-using LSC.OnlineCourse.Services;
-using Microsoft.AspNetCore.Http;
+using LSC.OnlineCourse.Data.Entities;
+using LSC.OnlineCourse.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LSC.OnlineCourse.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CourseCategoryController(ICourseCategoryService categoryService) : ControllerBase
-    {
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CourseCategoryDto>> Get( int id)
-        {
-            var category = await categoryService.GetByIdAsync(id);
-            if (category == null) 
-            {
-                return NotFound();
-            }
+    [AllowAnonymous]
+    public class CourseCategoryController : ControllerBase
+    {        
 
-            return Ok(category);
+        private readonly ILogger<CourseCategoryController> _logger;
+        private readonly ICourseCategoryService categoryService;
+        
+        public CourseCategoryController(ILogger<CourseCategoryController> logger, ICourseCategoryService categoryService)
+        {
+            _logger = logger;
+            this.categoryService = categoryService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<CourseCategoryDto>>> GetAll()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
         {
-            var courseDetail = await categoryService.GetAllAsync();
-            if (courseDetail is null)
+            var category = await categoryService.GetByIdAsync(id);
+            //what if the id is not present?
+            if (category == null)
             {
                 return NotFound();
             }
-
-            return Ok(courseDetail);
+            return Ok(category);
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var categories = await categoryService.GetCourseCategories();
+            return Ok(categories);
         }
     }
 }
