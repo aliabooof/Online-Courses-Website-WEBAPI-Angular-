@@ -13,9 +13,9 @@ namespace LSC.OnlineCourse.API.Controllers
     [Authorize]
     public class UserAdminController : ControllerBase
     {
-        private readonly ICourseService courseService;
+        private readonly CourseService courseService;
 
-        public UserAdminController(ICourseService courseService)
+        public UserAdminController(CourseService courseService)
         {
             this.courseService = courseService;
         }

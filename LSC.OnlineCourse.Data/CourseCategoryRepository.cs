@@ -1,21 +1,30 @@
 ﻿using LSC.OnlineCourse.Core.Entities;
+using LSC.OnlineCourse.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LSC.OnlineCourse.Data
 {
-    public class CourseCategoryRepository(OnlineCourseDbContext _dbContext) : ICourseCategoryRepository
+    public class CourseCategoryRepository : ICourseCategoryRepository
     {
-        public Task<CourseCategory>? GetByIdAsync(int id)
-        {
-            var data =  _dbContext.CourseCategories.FindAsync(id).AsTask();
-            return data!;
-        }
-     
+        private readonly OnlineCourseDbContext dbContext;
 
-        public  Task<List<CourseCategory>> GetCourseCategoriesAsync()
+        public CourseCategoryRepository(OnlineCourseDbContext dbContext)
         {
-            var data =  _dbContext.CourseCategories.ToListAsync();
-            return data;
+            this.dbContext = dbContext;
+        }
+        public Task<CourseCategory?> GetById(int id)
+        {
+           return dbContext.CourseCategories.FindAsync(id).AsTask();
+        }
+
+        public Task<List<CourseCategory>> GetCourseCategories()
+        {
+            return dbContext.CourseCategories.ToListAsync();
         }
     }
 }

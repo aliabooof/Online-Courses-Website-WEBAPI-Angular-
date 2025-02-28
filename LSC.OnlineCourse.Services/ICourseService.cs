@@ -1,16 +1,24 @@
-﻿using LSC.OnlineCourse.Core.Model;
+﻿
+using LSC.OnlineCourse.Core.Entities;
+using LSC.OnlineCourse.Core.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LSC.OnlineCourse.Services
+namespace LSC.OnlineCourse.Service
 {
+   
     public interface ICourseService
-    {
-        Task<CourseDetailDto> GetCourseDetailsAsync(int courseId);
-        Task<List<CourseDto>> GetAllAsync( int? categoryId= null);
+    {       
+        Task<List<CourseModel>> GetAllCoursesAsync(int? categoryId = null);
+        Task<CourseDetailModel> GetCourseDetailAsync(int courseId);
+        Task AddCourseAsync(CourseDetailModel courseModel);
+        Task UpdateCourseAsync(CourseDetailModel courseModel);
+        Task DeleteCourseAsync(int courseId);
+        Task<List<InstructorModel>> GetAllInstructorsAsync();
+        Task<bool> UpdateCourseThumbnail(string courseThumbnailUrl, int courseId);
     }
-
 }

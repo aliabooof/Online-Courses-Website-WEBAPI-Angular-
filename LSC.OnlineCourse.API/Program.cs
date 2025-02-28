@@ -149,7 +149,7 @@ namespace LSC.OnlineCourse.API
                 builder.Services.AddScoped<ICourseCategoryRepository, CourseCategoryRepository>();
                 builder.Services.AddScoped<ICourseCategoryService, CourseCategoryService>();
                 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
-                builder.Services.AddScoped<ICourseService, CourseService>();
+                builder.Services.AddScoped<CourseService, CourseService>();
 
                 builder.Services.AddTransient<RequestBodyLoggingMiddleware>();
                 builder.Services.AddTransient<ResponseBodyLoggingMiddleware>();

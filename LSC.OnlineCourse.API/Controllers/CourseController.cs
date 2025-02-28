@@ -15,10 +15,10 @@ namespace LSC.OnlineCourse.API.Controllers
     [AllowAnonymous]    
     public class CourseController : ControllerBase
     {
-        private readonly ICourseService courseService;
+        private readonly CourseService courseService;
         private readonly IAzureBlobStorageService blobStorageService;
 
-        public CourseController(ICourseService courseService, IAzureBlobStorageService  blobStorageService)
+        public CourseController(CourseService courseService, IAzureBlobStorageService  blobStorageService)
         {
             this.courseService = courseService;
             this.blobStorageService = blobStorageService;
