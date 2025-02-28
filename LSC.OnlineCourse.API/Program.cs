@@ -16,7 +16,7 @@ namespace LSC.OnlineCourse.API
 
 
             builder.Services.AddDbContext<OnlineCourseDbContext>(options => {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                options.UseSqlServer(builder.Configuration.GetConnectionString("AzureDB"),
                 providerOptions => providerOptions.EnableRetryOnFailure());
                 //options.EnableSensitiveDataLogging();
             });
